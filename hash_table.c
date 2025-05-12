@@ -41,12 +41,15 @@ int hash_function1(struct hash_table* hash_table, char* key) {
  */
 
 int hash_function2(struct hash_table* hash_table, char* key) {
-  /*
-   * Currently this is the same as hash_function2, but your assignment is 
-   * to modify it to create an improved hash function: 
-   */
-
-  return ( (int) key[0] ) % hash_table->size;
+  int keymake = 0;
+  for (int i = 0; i < strlen(key); i++) {
+    keymake += key[i] * (2 * i + 1);
+  }
+  keymake *= key[0];
+  keymake /= strlen(key);
+  keymake += hash_table -> size - 4;
+  keymake *= hash_table -> size - 1;
+  return keymake % hash_table -> size;
 }
 
 struct hash_table* hash_table_create(int array_size) {
@@ -191,12 +194,12 @@ int hash_table_collisions(struct hash_table* hash_table) {
    */
   int num_col = 0;
   
-  struct node* iatetoomanygoldfishiguessthatsdinner = hash_table -> array[0];
+  struct node* now = hash_table -> array[0];
   for (int i = 0; i < hash_table -> size; i++) {
-    iatetoomanygoldfishiguessthatsdinner = hash_table -> array[i];
-    if (iatetoomanygoldfishiguessthatsdinner != NULL) {
-      while (iatetoomanygoldfishiguessthatsdinner -> next != NULL) {
-        iatetoomanygoldfishiguessthatsdinner = iatetoomanygoldfishiguessthatsdinner -> next;
+    now = hash_table -> array[i];
+    if (now != NULL) {
+      while (now -> next != NULL) {
+        now = now -> next;
         num_col++;
       } 
     }
