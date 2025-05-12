@@ -191,7 +191,16 @@ int hash_table_collisions(struct hash_table* hash_table) {
    */
   int num_col = 0;
   
-  // code goes here: 
+  struct node* iatetoomanygoldfishiguessthatsdinner = hash_table -> array[0];
+  for (int i = 0; i < hash_table -> size; i++) {
+    iatetoomanygoldfishiguessthatsdinner = hash_table -> array[i];
+    if (iatetoomanygoldfishiguessthatsdinner != NULL) {
+      while (iatetoomanygoldfishiguessthatsdinner -> next != NULL) {
+        iatetoomanygoldfishiguessthatsdinner = iatetoomanygoldfishiguessthatsdinner -> next;
+        num_col++;
+      } 
+    }
+  } 
 
   return num_col;
 }
